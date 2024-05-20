@@ -2,11 +2,71 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.11.1/dist/full.min.css" rel="stylesheet" type="text/css" />
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Blog Main</title>
+
+    <style>
+        header {
+            background-color: lightgray;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+        main {
+            background: #f2f4f7;
+            padding: 20px;
+        }
+        footer {
+            background-color: darkgray;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+    </style>
 </head>
 <body>
-
+<header role="banner">
+    <div class="logo">
+        <h1>My Blog</h1>
+    </div>
+    <nav>
+        <ul class="flex space-x-4">
+            <li><a href="#" class="text-black">Home</a></li>
+            <li><a href="#" class="text-black">About</a></li>
+            <li><a href="#" class="text-black">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+<main role="main" class="content">
+    <section>
+        <h2 class="text-xl font-bold mb-4">Recent Posts</h2>
+        <article class="mb-4 p-4 bg-white shadow rounded">
+            <h3 class="text-lg font-semibold">Post Title 1</h3>
+            <p class="text-gray-600">A brief description of the blog post. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </article>
+        <article class="mb-4 p-4 bg-white shadow rounded">
+            <h3 class="text-lg font-semibold">Post Title 2</h3>
+            <p class="text-gray-600">A brief description of the blog post. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </article>
+        <!-- More articles can be added here -->
+    </section>
+</main>
+<footer role="contentinfo">
+    <div class="text-center text-white">
+        <p>&copy; 2024 Daily Blog. All rights reserved.</p>
+        <div class="social-links">
+            <a href="#" class="text-white">Facebook</a> |
+            <a href="#" class="text-white">Twitter</a> |
+            <a href="#" class="text-white">Instagram</a>
+        </div>
+    </div>
+</footer>
 </body>
 </html>

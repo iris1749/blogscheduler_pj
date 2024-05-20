@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Article card</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.11.1/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .card-custom {
+            width: 350px;
+            height: 450px; /* 높이를 증가시켜 서론 부분을 더 확보 */
+            border: 1px solid #ccc; /* 실선 추가 */ /* 회색 실선 추가 */
+        }
+        .figure-custom {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+        }
+        .figure-custom img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .card-body {
+        border-bottom: 1px solid #ccc; /* 실선 추가 */
+        padding: 10px; /* 패딩을 추가하여 내부 여백 확보 */
+        }
+        .card-intro {
+            height: 74px; /* 서론 글씨 크기 조정 */
+            overflow: hidden;
+            font-size: 16px;
+        }
+        .card-title-container {
+            display: flex;
+            align-items: center;
+
+        }
+        .badge-secondary {
+            margin-left: 10px; /* 제목과 배지 사이의 여백 */
+        }
+
+        .user-info {
+            display: flex;
+            justify-content: space-between; /* 가로 정렬 및 간격 설정 */
+            padding: 10px;
+        }
+        .user-data, .article-data {
+            display: flex;
+            align-items: center;
+        }
+        .user-image, .like, .comment {
+            display: flex;
+            margin-right: 16px; /* 요소 간 간격 설정 */
+        }
+        .user-image img, .like img, .comment img {
+            width: 24px;
+            height: 24px;
+            object-fit: cover;
+        }
+        .user-image {
+            margin-top: 4px;
+            margin-right: 4px; /* 유저 이름과 프로필 이미지 사이 간격 조정 */
+        }
+        .user-nickname {
+            font-weight: bold; /* 굵은 글꼴 적용 */
+        }
+        .write-font {
+            font-size: 14px;
+            margin-left: 4px;
+        }
+        .user-nickname, .like-count, .comment-count {
+            font-size: 13px; /* 포인트 크기 조정 */
+            margin-left: 8px; /* 텍스트와 이미지 사이 여백 */
+        }
+        .card-title-container h4 {
+            font-size: 20px; /* 글자 크기 조정 */
+        }
+        .user-image img {
+            width: 25px; /* 이미지 크기 조정 */
+            height: 25px;
+            object-fit: cover;
+            border: 1px solid black; /* 테두리 추가 */
+            border-radius: 50%; /* 원형 모양으로 만들기 */
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="card card-custom bg-base-100 shadow-xl" id="article card">
+        <figure class="figure-custom">
+            <img th:src="${article_image_url}" alt="article_image">
+        </figure>
+
+        <div class="card-body">
+            <div class="card-title-container">
+                <h4 th:text="${article_title}" id="article title">article title</h4>
+                <div class="badge badge-secondary">인기글</div>
+            </div>
+
+            <p class="card-intro" th:text="${article_intro}" id="article intro">내용없음내용없음내용없음내용없음내용없음내용없음내용없음내용없음내용없음내용없음</p>
+
+            <div class="card-actions justify-start"> <!-- 왼쪽 정렬을 위해 justify-start로 변경 -->
+                <div class="badge badge-outline" th:text="${article_tag}" id="article tag">tag</div>
+            </div>
+        </div>
+
+        <div class="user-info">
+            <div class="user-data">
+                <div class="user-image">
+                    <img src="https://i.imgur.com/zDLLWXg.png" alt="user_image">
+<!--                    <img th:src="${user_profile_image}" alt="user_image">-->
+                </div>
+                <h2 class="write-font">written by</h2>
+                <h2 class="user-nickname" th:text="${user_nickname}">jy</h2>
+            </div>
+
+            <div class="article-data">
+                <div class="like">
+                    <img src="https://i.imgur.com/zDLLWXg.png" alt="like_icon">
+                    <h2 class="like-count" th:text="${article_like}" id="like-count">1</h2>
+                </div>
+                <div class="comment">
+                    <img src="https://i.imgur.com/SczulZx.png" alt="comment_icon">
+                    <h2 class="comment-count" th:text="${article_comment}" id="comment-count">1</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
