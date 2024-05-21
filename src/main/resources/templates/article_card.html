@@ -2,14 +2,15 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>Article card</title>
+    <title>article card</title>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.11.1/dist/full.min.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .card-custom {
             width: 350px;
             height: 450px; /* 높이를 증가시켜 서론 부분을 더 확보 */
-            border: 1px solid #ccc; /* 실선 추가 */ /* 회색 실선 추가 */
+            border: 1px solid #ccc; /* 회색 실선 추가 */
+
         }
         .figure-custom {
             width: 100%;
@@ -22,8 +23,8 @@
             object-fit: cover;
         }
         .card-body {
-        border-bottom: 1px solid #ccc; /* 실선 추가 */
-        padding: 10px; /* 패딩을 추가하여 내부 여백 확보 */
+            border-bottom: 1px solid #ccc; /* 실선 추가 */
+            padding: 10px; /* 패딩을 추가하여 내부 여백 확보 */
         }
         .card-intro {
             height: 74px; /* 서론 글씨 크기 조정 */
@@ -33,12 +34,10 @@
         .card-title-container {
             display: flex;
             align-items: center;
-
         }
         .badge-secondary {
             margin-left: 10px; /* 제목과 배지 사이의 여백 */
         }
-
         .user-info {
             display: flex;
             justify-content: space-between; /* 가로 정렬 및 간격 설정 */
@@ -85,7 +84,7 @@
     </style>
 </head>
 <body>
-<div class="container">
+<div fragment="article card" class="container">
     <div class="card card-custom bg-base-100 shadow-xl" id="article card">
         <figure class="figure-custom">
             <img th:src="${article_image_url}" alt="article_image">
@@ -108,7 +107,7 @@
             <div class="user-data">
                 <div class="user-image">
                     <img src="https://i.imgur.com/zDLLWXg.png" alt="user_image">
-<!--                    <img th:src="${user_profile_image}" alt="user_image">-->
+                    <!-- <img th:src="${user_profile_image}" alt="유저 이미지"> -->
                 </div>
                 <h2 class="write-font">written by</h2>
                 <h2 class="user-nickname" th:text="${user_nickname}">jy</h2>

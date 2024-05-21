@@ -1,63 +1,106 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <title>Blog Main</title>
-
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.11.1/dist/full.min.css" rel="stylesheet" type="text/css"/>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" type="text/css" href="article_card.css">
     <style>
         header {
             background-color: lightgray;
-            height: 100px;
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            padding: 0 20px;
-        }
-        main {
-            background: #f2f4f7;
+            align-items: center;
             padding: 20px;
         }
+        .avatar {
+            width: 36px;
+            height: 36px;
+        }
+
+         main {
+            height: 960px;
+            display: flex;
+            padding: 20px;
+         }
+        .box content {
+            display: flex;
+            padding: 20px;
+        }
+        .article section {
+            display: flex;
+            padding: 20px;
+        }
+
+
         footer {
             background-color: darkgray;
-            height: 150px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            text-align: center;
             padding: 20px;
         }
-        .content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-    </style>
+
+        <img src="../../../../../../AppData/Local/Temp/04-2.jpg" height="752" width="1000"/></style>
 </head>
 <body>
 <header role="banner">
     <div class="logo">
-        <h1>My Blog</h1>
+        <a href="#">
+            Daily Blog
+        </a>
     </div>
+    <label class="input input-bordered flex items-center gap-2">
+        <input type="text" class="grow" placeholder="Search"/>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-6 h-4 opacity-100">
+            <path fill-rule="evenodd"
+                  d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                  clip-rule="evenodd"/>
+        </svg>
+    </label>
     <nav>
         <ul class="flex space-x-4">
-            <li><a href="#" class="text-black">Home</a></li>
-            <li><a href="#" class="text-black">About</a></li>
-            <li><a href="#" class="text-black">Contact</a></li>
+            <div class="user-notice">
+                <a href="#" class="text-black">
+                    <img src="https://i.imgur.com/q7NN11L.png" alt="user_notice">
+                </a>
+            </div>
+            <div class="user-notice">
+                <a href="#" class="text-black">
+                    <img src="https://i.imgur.com/6DKYAIt.png" alt="user_notice">
+                </a>
+            </div>
+            <div class="avatar">
+                <div class="w-24 rounded-full">
+                    <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                </div>
+            </div>
         </ul>
     </nav>
 </header>
-<main role="main" class="content">
-    <section>
-        <h2 class="text-xl font-bold mb-4">Recent Posts</h2>
-        <article class="mb-4 p-4 bg-white shadow rounded">
-            <h3 class="text-lg font-semibold">Post Title 1</h3>
-            <p class="text-gray-600">A brief description of the blog post. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </article>
-        <article class="mb-4 p-4 bg-white shadow rounded">
-            <h3 class="text-lg font-semibold">Post Title 2</h3>
-            <p class="text-gray-600">A brief description of the blog post. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </article>
-        <!-- More articles can be added here -->
-    </section>
+
+<main role="main">
+    <div class="box content">
+        <div class="article section">
+            <div class="article section" id="articlesContainer">
+                <!-- 여기에 동적으로 추가될 article_card.html의 iframe을 담을 요소 -->
+            </div>
+            <div>
+                <iframe src="article_card.html" width="350" height="450"></iframe>
+            </div>
+        </div>
+        <div class="sidebar">
+            <div class="scheduler section"></div>
+            <div class="todolist section"></div>
+        </div>
+    </div>
 </main>
+
+<!--            <article class="mb-4 p-4 bg-white shadow rounded">-->
+<!--                <h3 class="text-lg font-semibold">Post Title 1</h3>-->
+<!--                <p class="text-gray-600">A brief description of the blog post. Lorem ipsum dolor sit amet, consectetur-->
+<!--                    adipiscing elit.</p>-->
+<!--            </article>-->
+
 <footer role="contentinfo">
     <div class="text-center text-white">
         <p>&copy; 2024 Daily Blog. All rights reserved.</p>
@@ -68,5 +111,6 @@
         </div>
     </div>
 </footer>
+
 </body>
 </html>
