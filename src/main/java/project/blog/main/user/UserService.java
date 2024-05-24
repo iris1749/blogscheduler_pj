@@ -3,8 +3,10 @@ package project.blog.main.user;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import project.blog.main.DataNotFoundException;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -23,5 +25,16 @@ public class UserService {
 
         return userRepository.save(user);
     }
+
+    public User getUser(String signinId){
+        Optional<User> siteUser = this.userRepository.findBySigninId(signinId);
+        if (siteUser.isPresent()){
+            return siteUser.get();
+        } else{
+            throw new DataNotFoundException("user not found");
+        }
+    }
+
+
 
 }

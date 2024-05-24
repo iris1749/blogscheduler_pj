@@ -44,7 +44,7 @@
             justify-content: space-between; /* 가로 정렬 및 간격 설정 */
             padding: 10px;
         }
-        .user-data, .article-data {
+        .user-data, .post-data {
             display: flex;
             align-items: center;
         }
@@ -86,21 +86,21 @@
 </head>
 <body>
 <div class="container">
-    <div class="card card-custom bg-base-100 shadow-xl" id="article card">
+    <div class="card card-custom bg-base-100 shadow-xl" id="post card">
         <figure class="figure-custom">
-            <img th:src="${article_image_url}" alt="article_image">
+            <img th:src="${post_image_url}" alt="post_image">
         </figure>
 
         <div class="card-body">
             <div class="card-title-container">
-                <h4 th:text="${article_title}" id="article title">article title</h4>
+                <h4 th:text="${post_title}" id="post title">post title</h4>
                 <div class="badge badge-secondary">인기글</div>
             </div>
 
-            <p class="card-intro" th:text="${article_intro}" id="article intro">내용없음내용없음내용없음내용없음내용없음내용없음내용없음내용없음내용없음내용없음</p>
+            <p class="card-intro" th:text="${post_intro}" id="post intro">내용없음내용없음내용없음내용없음내용없음내용없음내용없음내용없음내용없음내용없음</p>
 
             <div class="card-actions justify-start"> <!-- 왼쪽 정렬을 위해 justify-start로 변경 -->
-                <div class="badge badge-outline" th:text="${article_tag}" id="article tag">tag</div>
+                <div class="badge badge-outline" th:text="${post_tag}" id="post tag">tag</div>
             </div>
         </div>
 
@@ -114,14 +114,14 @@
                 <h2 class="user-nickname" th:text="${user_nickname}">jy</h2>
             </div>
 
-            <div class="article-data">
+            <div class="post-data">
                 <div class="like">
                     <img src="https://i.imgur.com/zDLLWXg.png" alt="like_icon">
-                    <h2 class="like-count" th:text="${article_like}" id="like-count">1</h2>
+                    <h2 class="like-count" th:text="${post_like}" id="like-count">1</h2>
                 </div>
                 <div class="comment">
                     <img src="https://i.imgur.com/SczulZx.png" alt="comment_icon">
-                    <h2 class="comment-count" th:text="${article_comment}" id="comment-count">1</h2>
+                    <h2 class="comment-count" th:text="${post_comment}" id="comment-count">1</h2>
                 </div>
             </div>
         </div>
