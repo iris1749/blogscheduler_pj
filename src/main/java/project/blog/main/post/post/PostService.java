@@ -89,8 +89,8 @@ public class PostService {
         this.postRepository.delete(post);
     }
 
-    public void vote(Post post, User user){
-        post.getVoter().add(user);
+    public void like(Post post, User user){
+        post.getLike().add(user);
         this.postRepository.save(post);
     }
 

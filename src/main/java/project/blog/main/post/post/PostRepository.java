@@ -16,7 +16,7 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
     @Query("SELECT DISTINCT p FROM Post p " +
             "LEFT JOIN p.author u " +
             "WHERE p.subject LIKE %:kw% " +
-            "OR u.username LIKE %:kw%")
+            "OR u.nickname LIKE %:kw%")
     Page<Post> findAllByKeyword(@Param("kw") String kw, Pageable pageable);
 
     @Modifying
