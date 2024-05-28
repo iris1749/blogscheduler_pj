@@ -268,15 +268,23 @@
                 <a href="/oauth2/authorization/kakao" class="social"><i class="kakao"></i></a>
             </div>
             <span>or use your email for registration</span>
+            <div>
+                <input type="text" th:field="*{signinId}" class="input" placeholder="User Id" />
+                <div th:if="${#fields.hasErrors('signinId')}" th:errors="*{signinId}" class="error"></div>
 
-            <input type="text" th:field="*{signinId}" name="userid" class="input" placeholder="User Id" />
-            <input type="password" th:field="*{password}" name="password" class="input" placeholder="Password">
-            <input type="email" th:field="*{email}" name="email" class="input" placeholder="Email" />
-            <input type="text" th:field="*{nickname}" name="username" class="input" placeholder="User Name">
+                <input type="password" th:field="*{password}" class="input" placeholder="Password" />
+                <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error"></div>
 
+                <input type="email" th:field="*{email}" class="input" placeholder="Email" />
+                <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error"></div>
+
+                <input type="text" th:field="*{nickname}" class="input" placeholder="User Name" />
+                <div th:if="${#fields.hasErrors('nickname')}" th:errors="*{nickname}" class="error"></div>
+            </div>
             <button type="submit">Sign Up</button>
         </form>
     </div>
+
     <div class="form-container sign-in-container">
         <form th:action="@{/signin}" method="post">
             <h1>Sign in</h1>
@@ -286,13 +294,15 @@
                 <a href="/oauth2/authorization/kakao" class="social"><i class="kakao"></i></a>
             </div>
             <span>or use your account</span>
-            <input type="text" name="userid" class="input" placeholder="User Id">
-            <input type="password" name="password" class="input" placeholder="Password">
-
+            <div>
+                <input type="text" name="username" class="input" placeholder="User Id">
+                <input type="password" name="password" class="input" placeholder="Password">
+            </div>
             <a href="#">Forgot your password?</a>
             <button type="submit">Sign In</button>
         </form>
     </div>
+
     <div class="overlay-container">
         <div class="overlay">
             <div class="overlay-panel overlay-left">

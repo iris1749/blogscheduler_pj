@@ -1,4 +1,4 @@
-package project.blog.main.user;
+package project.blog.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -7,6 +7,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import project.blog.main.user.User;
+import project.blog.main.user.UserRepository;
+import project.blog.main.user.UserRole;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import project.blog.main.DataNotFoundException;
 
 @RequiredArgsConstructor
 @Controller
@@ -20,13 +23,6 @@ public class SignController {
 
     private static final Logger logger = LoggerFactory.getLogger(SignController.class);
     private final UserService userService;
-
-    // Spring이 URL 매핑을 통해 이 메서드를 호출합니다.
-    @GetMapping("/signup")
-    public String signup(Model model) {
-        model.addAttribute("userForm", new UserForm());
-        return "sign_form";
-    }
 
     // Spring이 URL 매핑을 통해 이 메서드를 호출합니다.
     @PostMapping("/signup")
@@ -50,7 +46,6 @@ public class SignController {
         return "redirect:/signin";
     }
 
-    // Spring이 URL 매핑을 통해 이 메서드를 호출합니다.
     @GetMapping("/signin")
     public String showLoginForm(Model model, Authentication authentication) {
         if (authentication != null && authentication.isAuthenticated()) {
@@ -59,5 +54,6 @@ public class SignController {
         model.addAttribute("userForm", new UserForm());
         return "sign_form";
     }
+
 
 }
