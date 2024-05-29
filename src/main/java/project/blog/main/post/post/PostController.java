@@ -62,13 +62,13 @@ public class PostController {
 
     //post 작성 기능
     @PreAuthorize("isAuthenticated()")
-    @GetMapping("/create")
+    @GetMapping("/write")
     public String postCreate(PostForm postForm) {
         return "post_form";
     }
 
     @PreAuthorize("isAuthenticated()")
-    @PostMapping("/create")
+    @PostMapping("/write")
     public String questionCreate(@Valid PostForm postForm, BindingResult bindingResult, Principal principal) {
         if (bindingResult.hasErrors()) {
             return "post_form";

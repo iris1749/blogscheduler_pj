@@ -18,10 +18,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers("/signin", "/signup").permitAll()
-                        .anyRequest().authenticated()
-                )
+//                .authorizeHttpRequests((authorize) -> authorize
+//                        .requestMatchers("/signin", "/signup").permitAll()
+//                        .anyRequest().authenticated()
+//                )
                 .formLogin(formLogin ->
                         formLogin
                                 .loginPage("/signin")
@@ -34,7 +34,7 @@ public class SecurityConfig {
                 .logout(logout -> logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                         .invalidateHttpSession(true)
-                        .logoutSuccessUrl("/signin")
+                        .logoutSuccessUrl("/")
                 );
 
         return http.build();
