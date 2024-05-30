@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css">
     <!-- Bootstrap CSS (Optional for styling) -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <!-- Tagify CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css">
     <style>
         /* 줄 간격 조절 */
         .toastui-editor-contents p,
@@ -26,39 +28,133 @@
             background-color: transparent;
             color: inherit;
         }
+
+        /* 제목 입력칸 스타일 조정 */
+        #title {
+            font-size: 2rem; /* 폰트 크기 조정 */
+            height: 4rem; /* 입력칸 높이 조정 */
+        }
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>Create a Blog Post</h1>
-    <form action="/submitBlogPost" method="post">
+    <form id="blogForm">
         <div class="form-group">
-            <label for="title">Title</label>
-            <input type="text" class="form-control" id="title" name="title" required>
+            <input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력하세요." required>
         </div>
         <div class="form-group">
-            <label for="content">Content</label>
+            <input type="text" class="form-control" id="tags" name="tags" placeholder="태그를 입력하세요.">
+        </div>
+        <div class="form-group">
             <div id="editor"></div>
             <textarea id="content" name="content" style="display:none;"></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#postModal">Submit</button>
     </form>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="postModal" tabindex="-1" role="dialog" aria-labelledby="postModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="postModalLabel">Additional Information</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="thumbnail">Poster Thumbnail</label>
+                    <input type="file" class="form-control-file" id="thumbnail" name="thumbnail">
+                </div>
+                <div class="form-group">
+                    <label for="summary">Summary</label>
+                    <textarea class="form-control" id="summary" name="summary" rows="3" placeholder="서론을 입력하세요."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">돌아가기</button>
+                <button type="button" class="btn btn-primary" id="finalSubmit">등록하기</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Toast UI Editor JavaScript -->
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<!-- Tagify JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         var editor = new toastui.Editor({
             el: document.querySelector('#editor'),
             height: '600px',
             initialEditType: 'markdown',
-            previewStyle: 'vertical'
+            previewStyle: 'vertical',
+            hooks: {
+                addImageBlobHook: (blob, callback) => {
+                    // 이미지 업로드 요청이 시작됨을 로그로 출력
+                    console.log('이미지 업로드 요청이 시작되었습니다...');
+
+                    const formData = new FormData();
+                    formData.append('image', blob);
+
+                    fetch('/writeTest.do', {
+                        method: 'POST',
+                        body: formData,
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.url) {
+                            const url = data.url;
+                            callback(url, '사진 대체 텍스트 입력');
+                        } else {
+                            console.error('이미지 업로드 실패:', data.error);
+                            callback('image_load_fail', '사진 대체 텍스트 입력');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('오류:', error);
+                        callback('image_load_fail', '사진 대체 텍스트 입력');
+                    });
+                }
+            }
         });
 
-        document.querySelector('form').addEventListener('submit', function() {
+        var tagInput = document.querySelector('#tags');
+        var tagify = new Tagify(tagInput);
+
+        document.querySelector('#finalSubmit').addEventListener('click', function() {
             var content = editor.getMarkdown();
             document.querySelector('#content').value = content;
+
+            var form = document.querySelector('#blogForm');
+            var formData = new FormData(form);
+
+            formData.append('thumbnail', document.querySelector('#thumbnail').files[0]);
+            formData.append('summary', document.querySelector('#summary').value);
+            formData.append('tags', tagify.value.map(tag => tag.value).join(','));
+
+            fetch('/submitBlogPost', {
+                method: 'POST',
+                body: formData
+            }).then(response => {
+                if(response.ok) {
+                    alert('글이 성공적으로 등록되었습니다!');
+                } else {
+                    alert('글 등록에 실패했습니다.');
+                }
+            }).catch(error => {
+                console.error('오류:', error);
+                alert('글 등록에 실패했습니다.');
+            });
+
+            $('#postModal').modal('hide');
         });
     });
 </script>
