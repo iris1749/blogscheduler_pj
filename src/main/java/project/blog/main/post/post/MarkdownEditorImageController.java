@@ -18,7 +18,7 @@ public class MarkdownEditorImageController {
         this.imageUploadService = imageUploadService;
     }
 
-    @PostMapping("/writeTest.do")
+    @PostMapping("/image")
     public @ResponseBody Map<String, String> writeTestPost(@RequestParam("image") MultipartFile multi) {
         Map<String, String> response = new HashMap<>();
         try {

@@ -66,14 +66,15 @@ public class PostService {
         }
     }
 
-    public void create(String subject, String content, User user, String category) {
-        Post p = new Post();
-        p.setSubject(subject);
-        p.setContent(content);
-        p.setCreateDate(LocalDateTime.now());
-        p.setAuthor(user);
-        p.setCategory(category);
-        this.postRepository.save(p);
+    public void create(String subject, String content, String introcontent, User user, String category) {
+        Post post = new Post();
+        post.setSubject(subject);
+        post.setContent(content);
+        post.setIntrocontent(introcontent);
+        post.setCreateDate(LocalDateTime.now());
+        post.setAuthor(user);
+        post.setCategory(category);
+        this.postRepository.save(post);
     }
 
     public void modify(Post post, String subject, String content, String category) {

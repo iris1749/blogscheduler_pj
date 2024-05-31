@@ -25,7 +25,7 @@ public class PostController {
     private final UserService userService;
 
 //    user id별 게시글 구현
-//    @GetMapping(value = "/{id}")
+//    @GetMapping(value = "/posts/{id}")
 //    public String detail(Model model, @PathVariable("id") Integer id, AnswerForm answerForm, CommentForm commentForm,
 //                         @RequestParam(name = "sortoption", defaultValue = "latest") String sortoption,
 //                         @RequestParam(name = "answer_page", defaultValue = "0") int answer_page) {
@@ -57,7 +57,7 @@ public class PostController {
         Page<Post> paging = this.postService.getList(page, kw);
         model.addAttribute("paging", paging);
         model.addAttribute("search_kw", kw);
-        return "question_list";
+        return "post_list";
     }
 
     //post 작성 기능
@@ -69,14 +69,13 @@ public class PostController {
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/write")
-    public String questionCreate(@Valid PostForm postForm, BindingResult bindingResult, Principal principal) {
+    public String postCreate(@Valid PostForm postForm, BindingResult bindingResult, Principal principal) {
         if (bindingResult.hasErrors()) {
             return "post_form";
         }
         User user = this.userService.getUser(principal.getName());
-        this.postService.create(postForm.getSubject(), postForm.getContent(), user, postForm.getCategory());
-        return "redirect:/question/list";
+        this.postService.create(postForm.getSubject(), postForm.getContent(), postForm.getIntrocontent(), user, postForm.getCategory());
+        return "redirect:/blog_main"; // 수정된 URL
     }
-
 
 }
